@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/syncview-project/static/css/main.3d534673.css",
+    "main.js": "/syncview-project/static/js/main.667ff7f2.js",
+    "static/js/453.ead9bd2b.chunk.js": "/syncview-project/static/js/453.ead9bd2b.chunk.js",
+    "index.html": "/syncview-project/index.html",
+    "main.3d534673.css.map": "/syncview-project/static/css/main.3d534673.css.map",
+    "main.667ff7f2.js.map": "/syncview-project/static/js/main.667ff7f2.js.map",
+    "453.ead9bd2b.chunk.js.map": "/syncview-project/static/js/453.ead9bd2b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3d534673.css",
+    "static/js/main.667ff7f2.js"
+  ]
+}
