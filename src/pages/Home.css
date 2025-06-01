@@ -1,0 +1,72 @@
+/* src/pages/Home.css */
+.home-container {
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: -10px;
+}
+
+.logo img {
+  width: 130px;
+  margin-right: 8px;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  color: #000;
+}
+
+.main-content {
+  margin-top: 10vh;
+}
+
+.main-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.main-content p {
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+.start-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #64aef7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 1px 2px 5px rgba(0,0,0,0.1);
+}
+
+.start-btn:hover {
+  background-color: #3e97e2;
+}
