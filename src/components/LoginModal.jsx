@@ -3,6 +3,7 @@ import React from "react";
 import "./LoginModal.css";
 
 function LoginModal({ onClose }) {
+  // 모달 바깥 클릭 시 닫히지 않도록 이벤트 전파 차단
   const stopPropagation = (e) => e.stopPropagation();
 
   return (
