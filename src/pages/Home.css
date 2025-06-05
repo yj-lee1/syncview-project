@@ -58,7 +58,7 @@
   position: relative;
   display: inline-block;
   margin-left: 2rem;
-  padding-bottom: 1rem;   /* 기존 0.5rem → 1rem으로 증가 */
+  padding-bottom: 1rem;   /* 아이콘 아래 1rem 만큼 hover 영역 확장 */
 }
 
 .user-icon {
@@ -67,10 +67,11 @@
   color: #ffd600;
 }
 
+/* 팝업 위치를 아이콘 바로 밑(부모의 bottom)으로 설정 */
 .user-popup {
   display: none;
   position: absolute;
-  top: 120%;               /* 아이콘 아래에서 살짝 띄운 상태 유지 */
+  top: 100%;               /* .user-menu의 바로 아래에 붙음 */
   right: 0;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -97,7 +98,7 @@
   text-decoration: underline;
 }
 
-/* ========== 메인 콘텐츠 및 버튼, 뉴스 섹션 등 (이전과 동일) ========== */
+/* ========== 메인 콘텐츠 및 버튼, 뉴스 섹션 등 ========== */
 .main-content {
   margin-top: 8vh;
   padding: 0 1rem;
