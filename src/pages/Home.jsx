@@ -91,11 +91,10 @@ function Home() {
       {/* ========== 메인 콘텐츠 ========== */}
       <main className="main-content">
         <h1>News is short. Thoughts are long.</h1>
-        <p>Consume news more conveniently</p>
+        <p>뉴스를 더욱 편리하게 소비하세요.</p>
         <button className="start-btn" onClick={handleStart}>
-          Let’s start the service
+          start the service !
         </button>
-        <p className="auth-warning">no login required to read this</p>
       </main>
 
       {/* ========== 최신 뉴스 섹션 ========== */}
