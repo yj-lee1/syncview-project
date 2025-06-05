@@ -1,8 +1,9 @@
+// Home.jsx 예시
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "../components/LoginModal.css";       // CSS 경로
+import LoginModal from "../components/LoginModal";  // 컴포넌트 경로
 import "./Home.css";
-import LoginModal from "../components/LoginModal";
 
 const Home = () => {
   const navigate = useNavigate();
