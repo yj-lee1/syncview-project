@@ -1,4 +1,5 @@
 /* src/pages/Home.css */
+
 .home-container {
   font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
@@ -69,4 +70,68 @@
 
 .start-btn:hover {
   background-color: #3e97e2;
+}
+
+/* 추가된 스타일: 뉴스 섹션 */
+
+.news-section {
+  margin-top: 4rem;
+  text-align: left;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.news-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.news-card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  background-color: #fff;
+}
+
+.news-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.news-card p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.news-card button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-color: #64aef7;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.news-card button:hover {
+  background-color: #3e97e2;
+}
+
+.news-card .disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #666;
+}
+
+.auth-warning {
+  color: #999;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }
