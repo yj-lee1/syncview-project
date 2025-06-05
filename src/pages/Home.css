@@ -58,6 +58,7 @@
   position: relative;
   display: inline-block;
   margin-left: 2rem;
+  padding-bottom: 0.5rem;   /* 아이콘 바로 아래 영역까지 hover 유지 */
 }
 
 .user-icon {
@@ -69,7 +70,7 @@
 .user-popup {
   display: none;
   position: absolute;
-  top: 120%;               /* 아이콘 바로 아래 */
+  top: 120%;               /* 아이콘 아래에서 살짝 띄운 상태 */
   right: 0;
   background-color: #fff;
   border: 1px solid #ddd;
