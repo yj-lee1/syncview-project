@@ -1,68 +1,75 @@
 /* src/pages/Home.css */
 
+/* 전체 기본 폰트: Pretendard로 예시 (원하는 폰트로 교체) */
+@import url('https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css');
+
 .home-container {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Pretendard', sans-serif;
   text-align: center;
   background-color: #f9f9f9;
   min-height: 100vh;
 }
 
-/* ========== 헤더 스타일 ========== */
+/* ========== 헤더 스타일 (디자인 반영) ========== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #000; /* 검정 배경 */
-  padding: 0.8rem 2rem;
+  padding: 1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 5;
 }
 
-.logo {
+/* 왼쪽 로고 영역 (이미지 없이 텍스트만) */
+.header-left {
   display: flex;
   align-items: center;
 }
 
-.logo img {
-  width: 130px;
+/* 보내주신 디자인 그대로 폰트 굵기/크기 적용 */
+.header-logo-text {
+  font-size: 1.8rem;       /* 예시: 1.8rem 크기 */
+  font-weight: 700;        /* 예시: 볼드체 */
+  color: #ffd600;          /* SyncView 옐로우 색상 */
 }
 
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #ffd600; /* SyncView 옐로우 */
-  margin-left: 0.5rem;
+/* 네비게이션 링크 */
+.nav {
+  display: flex;
+  align-items: center;
 }
 
-.nav a {
-  margin-left: 20px;
+.nav-item {
+  margin-left: 2rem;       /* 메뉴 간격 */
   text-decoration: none;
-  color: #ffd600; /* 노란색 텍스트 */
-  font-weight: 500;
+  color: #ffd600;          /* 노란색 텍스트 */
+  font-weight: 500;        /* 약간 굵게 */
+  font-size: 1rem;         /* 예시 폰트 크기 */
 }
 
-.nav a:hover {
-  color: #fff;
+.nav-item:hover {
+  color: #fff;             /* 호버 시 흰색 */
 }
 
 /* ========== 사용자 메뉴 (사람 아이콘 & 팝업) ========== */
 .user-menu {
   position: relative;
   display: inline-block;
+  margin-left: 2rem;
 }
 
 .user-icon {
-  font-size: 1.8rem;
+  font-size: 1.8rem;       /* 아이콘 크기 예시 */
   cursor: pointer;
   color: #ffd600;
 }
 
-/* 팝업 숨겨진 상태 */
 .user-popup {
   display: none;
   position: absolute;
-  top: 120%; /* 아이콘 바로 아래 */
+  top: 120%;               /* 아이콘 바로 아래 */
   right: 0;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -73,7 +80,6 @@
   min-width: 100px;
 }
 
-/* 호버 시 팝업 보이기 */
 .user-menu:hover .user-popup {
   display: block;
 }
@@ -84,14 +90,13 @@
   color: #0056b3;
   font-size: 1rem;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
 }
 
 .popup-login-btn:hover {
   text-decoration: underline;
 }
 
-/* ========== 메인 콘텐츠 ========== */
+/* ========== 메인 콘텐츠 및 버튼, 뉴스 섹션 등 (이전과 동일) ========== */
 .main-content {
   margin-top: 8vh;
   padding: 0 1rem;
@@ -111,7 +116,7 @@
 .start-btn {
   margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;
-  background-color: #ffd600; /* SyncView 옐로우 */
+  background-color: #ffd600;
   color: #222;
   border: none;
   border-radius: 999px;
@@ -131,14 +136,13 @@
   margin-top: 0.5rem;
 }
 
-/* ========== 뉴스 섹션 ========== */
 .news-section {
   margin-top: 4rem;
   text-align: left;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 4rem; /* 하단 여유 */
+  padding-bottom: 4rem;
 }
 
 .news-section h2 {
@@ -172,7 +176,6 @@
   font-size: 0.95rem;
 }
 
-/* 버튼에서 disabled 속성 대신 .disabled 클래스로 시각화 */
 .news-card button {
   margin-right: 0.5rem;
   padding: 0.5rem 1rem;
@@ -189,14 +192,13 @@
   background-color: #e5c500;
 }
 
-/* isLoggedIn=false 일 때, 비활성화된 듯 회색으로 보이게 */
+/* isLoggedIn=false 일 때 비활성화된 듯 보이게 */
 .news-card button.disabled {
   background-color: #ccc;
   cursor: not-allowed;
   color: #666;
 }
 
-/* 비로그인 상태 시 안내 문구 */
 .news-card .auth-warning {
   color: #999;
   font-size: 0.85rem;
