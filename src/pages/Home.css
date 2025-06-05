@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000; /* 검정 배경으로 변경 */
+  background-color: #000; /* 검정 배경 */
   padding: 0.8rem 2rem;
   position: sticky;
   top: 0;
@@ -31,7 +31,7 @@
 .logo-text {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffd600; /* SyncView 옐로우 색상 */
+  color: #ffd600; /* SyncView 옐로우 */
   margin-left: 0.5rem;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .nav a:hover {
-  color: #fff; /* 호버 시 흰색 */
+  color: #fff;
 }
 
 /* ========== 사용자 메뉴 (사람 아이콘 & 팝업) ========== */
@@ -58,6 +58,7 @@
   color: #ffd600;
 }
 
+/* 팝업 숨겨진 상태 */
 .user-popup {
   display: none;
   position: absolute;
@@ -72,6 +73,7 @@
   min-width: 100px;
 }
 
+/* 호버 시 팝업 보이기 */
 .user-menu:hover .user-popup {
   display: block;
 }
@@ -170,6 +172,7 @@
   font-size: 0.95rem;
 }
 
+/* 버튼에서 disabled 속성 대신 .disabled 클래스로 시각화 */
 .news-card button {
   margin-right: 0.5rem;
   padding: 0.5rem 1rem;
@@ -186,12 +189,14 @@
   background-color: #e5c500;
 }
 
-.news-card .disabled {
+/* isLoggedIn=false 일 때, 비활성화된 듯 회색으로 보이게 */
+.news-card button.disabled {
   background-color: #ccc;
   cursor: not-allowed;
   color: #666;
 }
 
+/* 비로그인 상태 시 안내 문구 */
 .news-card .auth-warning {
   color: #999;
   font-size: 0.85rem;
