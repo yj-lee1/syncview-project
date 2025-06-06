@@ -1,77 +1,172 @@
 // src/pages/Signup.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Signup.css";
 
-
 function Signup() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-   const handleSubmit = (e) => {
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+    name: "",
+    phone: "",
+    birth: "",
+    emailId: "",
+    emailDomain: "naver.com",
+    interest: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 나중에 서버 전송 로직 들어갈 자리
-    navigate("/login"); // 로그인 화면으로 이동
+    const email = `${form.emailId}@${form.emailDomain}`;
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/register", {
+        username: form.username,
+        password: form.password,
+        name: form.name,
+        phone: form.phone,
+        birth: form.birth,
+        email,
+        interest: form.interest,
+      });
+
+      localStorage.setItem("username", form.username); // 로그인 상태 저장
+      alert("회원가입이 완료되었습니다.");
+      navigate("/"); // 홈으로 이동
+    } catch (err) {
+      console.error("회원가입 실패", err.response?.data);
+      alert("회원가입에 실패.\n중복된 아이디가 이미 있거나 정보를 잘못입력하셨습니다.");
+    }
   };
 
   return (
     <div className="signup-container">
-      <div className="signup-logo">
-        <img src="/logo.png" alt="SyncView Logo" />
-      </div>
+      {/* ===== 헤더 ===== */}
+      <header className="header">
+        <div className="header-left">
+          <span className="header-logo-text">SyncView</span>
+        </div>
+      </header>
 
+      {/* ===== 회원가입 박스 ===== */}
       <div className="signup-box">
         <h2>회원가입</h2>
-
         <form onSubmit={handleSubmit}>
-          {/* 아이디 */}
           <label>아이디</label>
-          <div className="input-row">
-            <input type="text" placeholder="아이디 입력" />
-            <button type="button" className="check-btn">중복 확인</button>
-          </div>
+          <input
+            name="username"
+            onChange={handleChange}
+            placeholder="아이디 입력"
+            className="signup-input"
+          />
 
-          {/* 비밀번호 */}
           <label>비밀번호</label>
-          <input type="password" placeholder="문자, 숫자, 특수문자 포함" />
-          <p className="error">20자 이내의 비밀번호를 입력해주세요</p>
+          <input
+            name="password"
+            type="password"
+            onChange={handleChange}
+            placeholder="비밀번호 (10자 이내)"
+            maxLength={10}
+            required
+          />
 
-          {/* 비밀번호 확인 */}
-          <label>비밀번호 확인</label>
-          <input type="password" placeholder="비밀번호 재입력" />
-
-          {/* 이름 */}
           <label>이름</label>
-          <input type="text" placeholder="이름을 입력해주세요" />
+          <input
+            name="name"
+            onChange={handleChange}
+            placeholder="이름 입력"
+            className="signup-input"
+          />
 
-          {/* 전화번호 */}
           <label>전화번호</label>
-          <input type="text" placeholder="휴대폰 번호 입력 ('-' 제외 11자리 입력)" />
+          <input
+            name="phone"
+            onChange={handleChange}
+            placeholder="11자리 입력 ('-' 제외)"
+            maxLength={11}
+            className="signup-input"
+          />
 
-          {/* 이메일 */}
+          <label>생년월일</label>
+          <input
+            name="birth"
+            onChange={handleChange}
+            placeholder="생년월일 6자리"
+            maxLength={6}
+            className="signup-input"
+          />
+
           <label>이메일 주소</label>
-          <div className="input-row">
-            <input type="text" placeholder="이메일 주소" />
+          <div className="email-row">
+            <input
+              name="emailId"
+              onChange={handleChange}
+              placeholder="이메일"
+              className="signup-input"
+            />
             <span className="at">@</span>
-            <select>
+            <select
+              name="emailDomain"
+              onChange={handleChange}
+              value={form.emailDomain}
+            >
               <option value="naver.com">naver.com</option>
               <option value="gmail.com">gmail.com</option>
+              <option value="daum.net">daum.net</option>
             </select>
           </div>
 
-          {/* 관심분야 */}
           <label>관심분야</label>
-          <div className="interest-row">
-            <label><input type="checkbox" value="경제" /> 경제</label>
-            <label><input type="checkbox" value="정치" /> 정치</label>
-            <label><input type="checkbox" value="연예" /> 연예</label>
+          <div className="interests">
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="경제"
+                onChange={handleChange}
+                checked={form.interest === "경제"}
+              />
+              경제
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="정치"
+                onChange={handleChange}
+                checked={form.interest === "정치"}
+              />
+              정치
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="연예"
+                onChange={handleChange}
+                checked={form.interest === "연예"}
+              />
+              연예
+            </label>
           </div>
+          <p className="interest-note">※ 관심분야는 하나만 선택할 수 있습니다.</p>
 
-          {/* 버튼 */}
           <div className="signup-buttons">
-            <button type="submit" className="blue">가입하기</button>
-            <button type="button" className="gray" onClick={() => navigate(-1)}>
-  가입취소
-</button>
+            <button type="submit" className="signup-btn">가입하기</button>
+            <button
+              type="button"
+              className="cancel-btn"
+              onClick={() => navigate("/")}
+            >
+              가입취소
+            </button>
           </div>
         </form>
       </div>
