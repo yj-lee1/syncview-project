@@ -4,7 +4,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 
 app.use(cors({
-  origin: "http://localhost:3002",
+  origin: "http://localhost:3003",
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
   credentials: true
