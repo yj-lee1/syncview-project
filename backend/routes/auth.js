@@ -8,7 +8,7 @@ router.post("/register", async (req, res) => {
   const { username, password, name, phone, birth, email, interest } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO member (username, password, name, phone, birth, email, interest)
+      `INSERT INTO users (username, password, name, phone, birth, email, interest)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING *`,
       [username, password, name, phone, birth, email, interest]
@@ -27,7 +27,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "SELECT * FROM member WHERE username = $1 AND password = $2",
+      "SELECT * FROM users WHERE username = $1 AND password = $2",
       [username, password]
     );
 
