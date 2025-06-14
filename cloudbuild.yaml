@@ -6,8 +6,8 @@ steps:
       - '-t'
       - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '-f'
-      - backend/Dockerfile    # ✅ 여기 수정됨
-      - backend               # ✅ context도 backend로 맞춤
+      - backend/Dockerfile
+      - backend
     id: Build
 
   - name: gcr.io/cloud-builders/docker
@@ -41,7 +41,7 @@ images:
 timeout: 900s
 
 options:
-  substitutionOption: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY  # ✅ 여기 추가
 
 substitutions:
   _DEPLOY_REGION: asia-northeast3
