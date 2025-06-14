@@ -6,18 +6,16 @@ steps:
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '-f'
-      - backend/Dockerfile           # ✅ Dockerfile 위치 명확히 지정
-      - backend                      # ✅ build context 지정
+      - backend/Dockerfile
+      - backend
     id: Build
 
-  # 2. 컨테이너 이미지 푸시
   - name: gcr.io/cloud-builders/docker
     args:
       - push
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
     id: Push
 
-  # 3. Cloud Run 서비스로 배포
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     args:
       - run
@@ -43,7 +41,7 @@ images:
 timeout: 900s
 
 options:
-  logging: CLOUD_LOGGING_ONLY  # 서비스 계정 사용 시 필수
+  logging: CLOUD_LOGGING_ONLY
 
 substitutions:
   _DEPLOY_REGION: us-central1
