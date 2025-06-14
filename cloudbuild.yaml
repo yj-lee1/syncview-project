@@ -1,5 +1,4 @@
 steps:
-  # 1. Dockerfile 빌드
   - name: gcr.io/cloud-builders/docker
     args:
       - build
@@ -7,8 +6,8 @@ steps:
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '-f'
-      - backend/Dockerfile
-      - backend
+      - backend/Dockerfile           # ✅ Dockerfile 위치 명확히 지정
+      - backend                      # ✅ build context 지정
     id: Build
 
   # 2. 컨테이너 이미지 푸시
