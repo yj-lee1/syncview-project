@@ -7,9 +7,9 @@ steps:
       - '--no-cache'
       - '-t'
       - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
-      - .
       - '-f'
-      - backend/Dockerfile
+      - Dockerfile  # backend 내부에서 Dockerfile 찾음
+      - .
     dir: backend
     id: Build
 
