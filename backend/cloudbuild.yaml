@@ -1,0 +1,61 @@
+# syncview-api 배포용
+steps:
+  # 1. Dockerfile 빌드
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '--no-cache'
+      - '-t'
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+      - .
+      - '-f'
+      - backend/Dockerfile
+    dir: backend
+    id: Build
+
+  # 2. 컨테이너 이미지 푸시
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+    id: Push
+
+  # 3. Cloud Run 서비스로 배포
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID
+      - '--region=$_DEPLOY_REGION'
+      - '--quiet'
+      - '--cpu=2'
+      - '--memory=1Gi'
+      - '--concurrency=80'
+      - '--max-instances=10'
+      - '--timeout=300'
+      - '--port=8080'
+    id: Deploy
+    entrypoint: gcloud
+
+images:
+  - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+
+timeout: 900s
+
+options:
+  substitutionOption: ALLOW_LOOSE
+
+substitutions:
+  _DEPLOY_REGION: asia-northeast3
+  _GCR_HOSTNAME: asia.gcr.io
+  _PLATFORM: managed
+  _SERVICE_NAME: syncview-api
+
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - syncview-api
