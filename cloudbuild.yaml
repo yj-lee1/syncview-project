@@ -1,21 +1,24 @@
 steps:
+  # 1. Dockerfile 빌드
   - name: gcr.io/cloud-builders/docker
     args:
       - build
       - '--no-cache'
       - '-t'
-      - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '-f'
       - backend/Dockerfile
       - backend
     id: Build
 
+  # 2. 컨테이너 이미지 푸시
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
     id: Push
 
+  # 3. Cloud Run 서비스로 배포
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     args:
       - run
@@ -23,7 +26,7 @@ steps:
       - update
       - $_SERVICE_NAME
       - '--platform=managed'
-      - '--image=asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
       - '--cpu=2'
@@ -36,15 +39,15 @@ steps:
     entrypoint: gcloud
 
 images:
-  - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
 
 timeout: 900s
 
 options:
-  logging: CLOUD_LOGGING_ONLY  # ✅ 여기 추가
+  logging: CLOUD_LOGGING_ONLY  # 서비스 계정 사용 시 필수
 
 substitutions:
-  _DEPLOY_REGION: asia-northeast3
+  _DEPLOY_REGION: us-central1
   _SERVICE_NAME: syncview-api
 
 tags:
