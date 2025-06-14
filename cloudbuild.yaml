@@ -1,6 +1,4 @@
-# syncview-api 배포용
 steps:
-  # 1. Dockerfile 빌드
   - name: gcr.io/cloud-builders/docker
     args:
       - build
@@ -8,19 +6,16 @@ steps:
       - '-t'
       - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '-f'
-      - Dockerfile
-      - .
-    dir: backend
+      - backend/Dockerfile    # ✅ 여기 수정됨
+      - backend               # ✅ context도 backend로 맞춤
     id: Build
 
-  # 2. 컨테이너 이미지 푸시
   - name: gcr.io/cloud-builders/docker
     args:
       - push
       - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
     id: Push
 
-  # 3. Cloud Run 서비스로 배포
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
     args:
       - run
