@@ -6,9 +6,9 @@ steps:
       - build
       - '--no-cache'
       - '-t'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+      - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '-f'
-      - Dockerfile  # backend 내부에서 Dockerfile 찾음
+      - Dockerfile
       - .
     dir: backend
     id: Build
@@ -17,7 +17,7 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+      - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
     id: Push
 
   # 3. Cloud Run 서비스로 배포
@@ -28,9 +28,7 @@ steps:
       - update
       - $_SERVICE_NAME
       - '--platform=managed'
-      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
-      - >-
-        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID
+      - '--image=asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
       - '--cpu=2'
@@ -43,7 +41,7 @@ steps:
     entrypoint: gcloud
 
 images:
-  - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+  - 'asia-docker.pkg.dev/$PROJECT_ID/syncview-api/syncview-api:$COMMIT_SHA'
 
 timeout: 900s
 
@@ -52,8 +50,6 @@ options:
 
 substitutions:
   _DEPLOY_REGION: asia-northeast3
-  _GCR_HOSTNAME: asia.gcr.io
-  _PLATFORM: managed
   _SERVICE_NAME: syncview-api
 
 tags:
